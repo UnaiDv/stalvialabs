@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Gracias! - Stalvia Labs</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Usa los mismos estilos que tu página principal */
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --light: #f8fafc;
+            --dark: #1e293b;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .container {
+            max-width: 600px;
+            background: white;
+            padding: 3rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .success-icon {
+            font-size: 4rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        
+        h1 {
+            color: var(--dark);
+            margin-bottom: 1rem;
+            font-size: 2.5rem;
+        }
+        
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+            color: #64748b;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .whats-next {
+            background: #f1f5f9;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+            text-align: left;
+        }
+        
+        .whats-next h3 {
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+        
+        .whats-next ul {
+            list-style: none;
+        }
+        
+        .whats-next li {
+            padding: 0.5rem 0;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .whats-next li:before {
+            content: "✓";
+            color: var(--primary);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="success-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        
+        <h1>¡Formulario Enviado!</h1>
+        
+        <p><strong>Hemos recibido tu solicitud de auditoría gratuita.</strong><br>
+        Te contactaremos en menos de 24 horas para coordinar la videollamada de 30 minutos.</p>
+        
+        <div class="whats-next">
+            <h3>¿Qué sigue ahora?</h3>
+            <ul>
+                <li>Revisa tu email (y carpeta de spam)</li>
+                <li>Prepara información sobre tus procesos actuales</li>
+                <li>Piensa en qué tareas te gustaría automatizar</li>
+                <li>Te llamaremos al número proporcionado</li>
+            </ul>
+        </div>
+        
+        <a href="index.html" class="btn">
+            <i class="fas fa-arrow-left"></i>
+            Volver al Inicio
+        </a>
+    </div>
+</body>
+</html>
