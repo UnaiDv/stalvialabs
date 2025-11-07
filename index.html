@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stalvia Labs - Automatización con IA para PYMES</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-light: #dbeafe;
+            --secondary: #7c3aed;
+            --dark: #1e293b;
+            --darker: #0f172a;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --gray-light: #e2e8f0;
+            --success: #10b981;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Moderno */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .logo i {
+            font-size: 1.5rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+        
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(37, 99, 235, 0.3);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Botón del formulario corregido */
+        .form-submit-btn {
+            width: 100%;
+            justify-content: center;
+        }
+
+        /* Menú móvil */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--dark);
+            transition: 0.3s;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 70px;
+            left: 0;
+            width: 100%;
+            background: white;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            padding: 2rem;
+            z-index: 999;
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-nav-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .mobile-nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            font-size: 1.1rem;
+            display: block;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--gray-light);
+        }
+        
+        /* Hero Section Mejorada */
+        .hero {
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            color: white;
+            padding: 180px 0 100px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80') center/cover;
+            opacity: 0.2;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+            max-width: 600px;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        /* Servicios Mejorados */
+        .servicios {
+            padding: 100px 0;
+            background: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2.8rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .section-title p {
+            font-size: 1.2rem;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .servicios-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+        
+        .servicio-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border: 1px solid var(--gray-light);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .servicio-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--primary);
+        }
+        
+        .servicio-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+        }
+        
+        .servicio-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--primary-light);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            font-size: 1.8rem;
+        }
+        
+        .servicio-card h3 {
+            color: var(--dark);
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+        
+        .servicio-card p {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+        }
+        
+        .servicio-card ul {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+        
+        .servicio-card li {
+            padding: 0.5rem 0;
+            position: relative;
+            padding-left: 2rem;
+            color: var(--gray);
+        }
+        
+        .servicio-card li:before {
+            content: "✓";
+            color: var(--success);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .tech-badge {
+            display: inline-block;
+            background: var(--gray-light);
+            color: var(--gray);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+        
+        /* Sobre Nosotros Mejorado */
+        .about {
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--light) 0%, white 100%);
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .about-image {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .about-text h2 {
+            font-size: 2.8rem;
+            margin-bottom: 2rem;
+            color: var(--dark);
+            font-weight: 700;
+        }
+        
+        .about-text p {
+            font-size: 1.1rem;
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+        
+        .features {
+            margin-top: 2rem;
+        }
+        
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature i {
+            color: var(--success);
+            font-size: 1.2rem;
+        }
+        
+        /* Proceso Mejorado */
+        .proceso {
+            padding: 100px 0;
+            background: white;
+        }
+        
+        .pasos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .paso {
+            text-align: center;
+            padding: 2.5rem 1.5rem;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+            border: 1px solid var(--gray-light);
+        }
+        
+        .paso:hover {
+            transform: translateY(-5px);
+        }
+        
+        .paso-numero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
+        }
+        
+        .paso h3 {
+            color: var(--dark);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        
+        .paso p {
+            color: var(--gray);
+            line-height: 1.6;
+        }
+        
+        /* CTA Mejorado */
+        .cta {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80') center/cover;
+            opacity: 0.1;
+        }
+        
+        .cta-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .cta h2 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .cta p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Contacto Mejorado */
+        .contacto {
+            padding: 100px 0;
+            background: var(--light);
+        }
+        
+        .contacto-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .contacto-info {
+            padding: 2.5rem;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+        
+        .contacto-info h3 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+        
+        .contacto-info ul {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+        
+        .contacto-info li {
+            padding: 0.7rem 0;
+            position: relative;
+            padding-left: 2rem;
+            color: var(--gray);
+        }
+        
+        .contacto-info li:before {
+            content: "✓";
+            color: var(--success);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+        
+        .contacto-details {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--gray-light);
+        }
+        
+        .contacto-details p {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--gray);
+        }
+        
+        .contacto-form {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid var(--gray-light);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+        
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+        
+        /* Footer Mejorado */
+        footer {
+            background: var(--darker);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .footer-logo i {
+            color: var(--primary);
+        }
+        
+        .footer-about p {
+            opacity: 0.7;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-links h4,
+        .footer-contact h4 {
+            color: white;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.7rem;
+        }
+        
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .footer-contact p {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            margin-bottom: 1rem;
+            opacity: 0.7;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            opacity: 0.7;
+        }
+        
+        /* =========================== */
+        /* RESPONSIVE PARA MÓVIL */
+        /* =========================== */
+        
+        @media (max-width: 1200px) {
+            .container {
+                padding: 0 30px;
+            }
+        }
+        
+        @media (max-width: 968px) {
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .about-image img {
+                height: 350px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            /* Header móvil */
+            .nav-links,
+            .btn:not(.mobile-btn) {
+                display: none;
+            }
+            
+            .menu-toggle {
+                display: flex;
+            }
+            
+            .mobile-btn {
+                display: inline-flex !important;
+                width: 100%;
+                justify-content: center;
+                margin-top: 1rem;
+            }
+            
+            /* Hero section móvil */
+            .hero {
+                padding: 140px 0 80px;
+                text-align: center;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+                margin-bottom: 1.2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+                margin-bottom: 2rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+            
+            .hero-buttons .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            /* Servicios móvil */
+            .servicios {
+                padding: 80px 0;
+            }
+            
+            .section-title {
+                margin-bottom: 3rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+            
+            .section-title p {
+                font-size: 1.1rem;
+                padding: 0 1rem;
+            }
+            
+            .servicios-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                margin-top: 2rem;
+            }
+            
+            .servicio-card {
+                padding: 2rem;
+            }
+            
+            .servicio-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+            
+            /* About móvil */
+            .about {
+                padding: 80px 0;
+            }
+            
+            .about-text h2 {
+                font-size: 2.2rem;
+                text-align: center;
+            }
+            
+            .about-image {
+                order: -1;
+            }
+            
+            .about-image img {
+                height: 300px;
+            }
+            
+            /* Proceso móvil */
+            .proceso {
+                padding: 80px 0;
+            }
+            
+            .pasos {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                margin-top: 2rem;
+            }
+            
+            .paso {
+                padding: 2rem 1rem;
+            }
+            
+            /* CTA móvil */
+            .cta {
+                padding: 80px 0;
+            }
+            
+            .cta h2 {
+                font-size: 2.2rem;
+            }
+            
+            .cta p {
+                font-size: 1.1rem;
+                padding: 0 1rem;
+            }
+            
+            .cta .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            /* Contacto móvil - CORRECCIÓN DEL BOTÓN */
+            .contacto {
+                padding: 80px 0;
+            }
+            
+            .contacto-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .contacto-info,
+            .contacto-form {
+                padding: 2rem 1.5rem;
+            }
+            
+            .contacto-info h3 {
+                font-size: 1.3rem;
+                text-align: center;
+            }
+            
+            /* Botón del formulario corregido para móvil */
+            .form-submit-btn {
+                width: 100%;
+                padding: 16px 28px;
+                font-size: 1.1rem;
+                display: flex !important;
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 20px;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            
+            .servicio-card {
+                padding: 1.5rem;
+            }
+            
+            .about-text h2 {
+                font-size: 1.8rem;
+            }
+            
+            .cta h2 {
+                font-size: 1.8rem;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+            }
+            
+            .menu-toggle span {
+                width: 20px;
+            }
+            
+            .form-submit-btn {
+                padding: 14px 24px;
+                font-size: 1rem;
+            }
+        }
+        
+        /* Mejoras de touch para móvil */
+        @media (hover: none) {
+            .servicio-card:hover,
+            .paso:hover,
+            .btn:hover {
+                transform: none;
+            }
+            
+            .servicio-card:active,
+            .paso:active,
+            .btn:active {
+                transform: scale(0.98);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <i class="fas fa-robot"></i>
+                    STALVIA LABS
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#servicios">Servicios</a></li>
+                    <li><a href="#nosotros">Sobre Nosotros</a></li>
+                    <li><a href="#proceso">Cómo Trabajamos</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+                <a href="#contacto" class="btn">
+                    <i class="fas fa-calendar-check"></i>
+                    Auditoría Gratuita
+                </a>
+                
+                <!-- Menú hamburguesa para móvil -->
+                <div class="menu-toggle" id="menuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+        
+        <!-- Menú móvil -->
+        <div class="mobile-menu" id="mobileMenu">
+            <ul class="mobile-nav-links">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#nosotros">Sobre Nosotros</a></li>
+                <li><a href="#proceso">Cómo Trabajamos</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+                <li>
+                    <a href="#contacto" class="btn mobile-btn">
+                        <i class="fas fa-calendar-check"></i>
+                        Auditoría Gratuita
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Automatiza tu negocio. Libera tu tiempo.</h1>
+                <p>Implementamos soluciones de automatización con IA asequibles y sencillas para PYMES. Olvídate de las tareas manuales y céntrate en hacer crecer tu negocio.</p>
+                <div class="hero-buttons">
+                    <a href="#contacto" class="btn">
+                        <i class="fas fa-play-circle"></i>
+                        Descubre Qué Automatizar
+                    </a>
+                    <a href="#servicios" class="btn btn-outline">
+                        <i class="fas fa-chart-line"></i>
+                        Ver Servicios
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Servicios -->
+    <section class="servicios" id="servicios">
+        <div class="container">
+            <div class="section-title">
+                <h2>Soluciones para tu día a día</h2>
+                <p>No hablamos en conceptos abstractos. Implementamos automatizaciones que funcionan desde el primer día.</p>
+            </div>
+            <div class="servicios-grid">
+                <div class="servicio-card">
+                    <div class="servicio-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3>Automatización de Procesos</h3>
+                    <p>Automatizamos tareas que roban horas a tu equipo:</p>
+                    <ul>
+                        <li>Gestión de emails y derivación de leads</li>
+                        <li>Actualización de bases de datos y CRMs</li>
+                        <li>Procesamiento de pedidos y facturas</li>
+                        <li>Generación de informes recurrentes</li>
+                    </ul>
+                    <div class="tech-badge">
+                        <i class="fab fa-react"></i> n8n & Make.com
+                    </div>
+                </div>
+                <div class="servicio-card">
+                    <div class="servicio-icon">
+                        <i class="fas fa-plug"></i>
+                    </div>
+                    <h3>Integración de Sistemas</h3>
+                    <p>Conectamos las herramientas que ya usas para que funcionen de forma inteligente:</p>
+                    <ul>
+                        <li>Conexión tienda online con almacén</li>
+                        <li>Sincronización CRM con email marketing</li>
+                        <li>Unión calendario de reservas con finanzas</li>
+                        <li>Automatización de reportes entre plataformas</li>
+                    </ul>
+                </div>
+                <div class="servicio-card">
+                    <div class="servicio-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3>Chatbots y Asistencia</h3>
+                    <p>Atiende a tus clientes 24/7 sin aumentar la carga de trabajo:</p>
+                    <ul>
+                        <li>Chatbots para preguntas frecuentes</li>
+                        <li>Asistentes para agendar citas</li>
+                        <li>Seguimiento automático de clientes</li>
+                        <li>Soporte multicanal automatizado</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sobre Nosotros -->
+    <section class="about" id="nosotros">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Equipo de Stalvia Labs trabajando">
+                </div>
+                <div class="about-text">
+                    <h2>Tu partner en automatización</h2>
+                    <p>En Stalvia Labs sabemos lo que es llevar un negocio. Entendemos que cada minuto y cada euro cuentan. Por eso, nos especializamos en ayudar a PYMES como la tuya a dar sus primeros pasos en la automatización con IA.</p>
+                    <p>Nuestra promesa es simple: Soluciones claras, resultados tangibles y un trato directo y sin complicaciones.</p>
+                    
+                    <div class="features">
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Sin grandes inversiones iniciales</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Proyectos ágiles y rápidos</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Soporte continuo post-implementación</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Tecnologías probadas y confiables</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Proceso -->
+    <section class="proceso" id="proceso">
+        <div class="container">
+            <div class="section-title">
+                <h2>Cómo Lo Hacemos</h2>
+                <p>Un proceso simple y transparente para obtener resultados rápidos</p>
+            </div>
+            <div class="pasos">
+                <div class="paso">
+                    <div class="paso-numero">1</div>
+                    <h3>Diagnóstico</h3>
+                    <p>Analizamos tus procesos para identificar qué se puede automatizar y cuánto tiempo podrías ahorrar.</p>
+                </div>
+                <div class="paso">
+                    <div class="paso-numero">2</div>
+                    <h3>Propuesta</h3>
+                    <p>Te presentamos un plan claro con los pasos, plazos y coste, sin letra pequeña.</p>
+                </div>
+                <div class="paso">
+                    <div class="paso-numero">3</div>
+                    <h3>Implementación</h3>
+                    <p>Creamos y configuramos la automatización, manteniéndote informado en cada paso.</p>
+                </div>
+                <div class="paso">
+                    <div class="paso-numero">4</div>
+                    <h3>Soporte</h3>
+                    <p>Te enseñamos a usarla y estamos disponibles para cualquier ajuste o duda posterior.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>¿Listo para recuperar tu tiempo?</h2>
+                <p>Más de 50 horas al mes es lo que pueden ahorrar nuestras automatizaciones a una PYME media. ¿Cuánto tiempo estás perdiendo tú?</p>
+                <a href="#contacto" class="btn">
+                    <i class="fas fa-rocket"></i>
+                    Comienza Tu Transformación
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacto -->
+    <section class="contacto" id="contacto">
+        <div class="container">
+            <div class="section-title">
+                <h2>Contacto</h2>
+                <p>Hablemos sobre cómo podemos ayudar a tu negocio</p>
+            </div>
+            <div class="contacto-grid">
+                <div class="contacto-info">
+                    <h3>Auditoría de Procesos Gratuita</h3>
+                    <p>Agenda tu sesión de 30 minutos sin compromiso. En esta videollamada:</p>
+                    <ul>
+                        <li>Analizaremos un proceso concreto de tu negocio</li>
+                        <li>Identificaremos qué tareas se pueden automatizar</li>
+                        <li>Te diremos exactamente cuánto tiempo podrías ahorrar</li>
+                        <li>Recibirás un plan de acción personalizado</li>
+                    </ul>
+                    
+                    <div class="contacto-details">
+                        <p><i class="fas fa-envelope"></i> info@stalvia-labs.org</p>
+                        <p><i class="fas fa-phone"></i> +34 941 000 000</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Logroño, La Rioja</p>
+                        <p><i class="fas fa-clock"></i> Lun-Vie: 9:00-18:00</p>
+                    </div>
+                </div>
+                <div class="contacto-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="nombre">Nombre completo</label>
+                            <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre">
+                        </div>
+                        <div class="form-group">
+                            <label for="empresa">Empresa</label>
+                            <input type="text" id="empresa" name="empresa" placeholder="Nombre de tu empresa">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required placeholder="tu@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="telefono">Teléfono</label>
+                            <input type="tel" id="telefono" name="telefono" placeholder="+34 ...">
+                        </div>
+                        <div class="form-group">
+                            <label for="mensaje">¿Qué proceso te gustaría automatizar?</label>
+                            <textarea id="mensaje" name="mensaje" placeholder="Ej: Gestión de facturas, atención al cliente, actualización de inventario..."></textarea>
+                        </div>
+                        <button type="submit" class="btn form-submit-btn">
+                            <i class="fas fa-paper-plane"></i>
+                            Solicitar Auditoría Gratuita
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <i class="fas fa-robot"></i>
+                        STALVIA LABS
+                    </div>
+                    <p>Especialistas en automatización con IA para PYMES. Ayudamos a empresas como la tuya a optimizar sus procesos y recuperar tiempo para lo que realmente importa.</p>
+                    <div class="hero-buttons">
+                        <a href="#contacto" class="btn">
+                            <i class="fas fa-comments"></i>
+                            Contáctanos
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Enlaces Rápidos</h4>
+                    <ul>
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="#servicios">Servicios</a></li>
+                        <li><a href="#nosotros">Sobre Nosotros</a></li>
+                        <li><a href="#proceso">Cómo Trabajamos</a></li>
+                        <li><a href="#contacto">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contacto</h4>
+                    <p><i class="fas fa-envelope"></i> info@stalvia-labs.org</p>
+                    <p><i class="fas fa-phone"></i> +34 941 000 000</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Logroño, La Rioja</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Stalvia Labs. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+<!-- === CHATBOT TEMPORAL === -->
+<div style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
+    <a href="#contacto" class="btn" style="box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
+        <i class="fas fa-comments"></i>
+        ¿Necesitas ayuda?
+    </a>
+</div>
+<!-- 
+=== CHATBOT TAWK.TO (COMENTADO HASTA TENER URL PÚBLICA) ===
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/67b0a99e56be8c4fa389c1db/1ik9r9v0r';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+-->
+
+    <script>
+        // Menú móvil
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        menuToggle.addEventListener('click', function() {
+            mobileMenu.classList.toggle('active');
+            // Animación del menú hamburguesa
+            const spans = menuToggle.querySelectorAll('span');
+            spans[0].style.transform = mobileMenu.classList.contains('active') ? 'rotate(45deg) translate(6px, 6px)' : 'none';
+            spans[1].style.opacity = mobileMenu.classList.contains('active') ? '0' : '1';
+            spans[2].style.transform = mobileMenu.classList.contains('active') ? 'rotate(-45deg) translate(6px, -6px)' : 'none';
+        });
+
+        // Cerrar menú al hacer clic en un enlace
+        document.querySelectorAll('.mobile-nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                const spans = menuToggle.querySelectorAll('span');
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            });
+        });
+
+        // Smooth scroll para los enlaces de navegación
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Manejo del formulario
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('¡Gracias por tu interés! Te contactaremos en breve para coordinar tu auditoría gratuita.');
+            this.reset();
+        });
+
+        // Efecto de aparición al hacer scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observar elementos para animación
+        document.querySelectorAll('.servicio-card, .paso, .about-content, .section-title').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Efecto de header al hacer scroll
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = '0 5px 20px rgba(0,0,0,0.1)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.08)';
+            }
+        });
+
+        // Prevenir zoom en inputs en iOS
+        document.addEventListener('touchstart', function() {}, {passive: true});
+    </script>
+</body>
+</html>
